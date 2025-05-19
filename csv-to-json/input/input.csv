@@ -1,0 +1,109 @@
+Etunimi,Sukunimi,E-mail,Kurssin nimi,Kurssi alkaa,Kurssi päättyy,Status,Arvosana,Kurssin suorituspäivämäärä
+Lisa,Fowler,lisa.fowler@example.com,Johdatus yhteiskuntatilastotieteeseen,2022-09-03,2022-11-30,completed,3,2022-09-11
+Alban,Roche,alban.roche@example.com,Building AI,2022-11-18,2023-02-01,inprogress,,
+Alba,Pastor,alba.pastor@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,completed,4,2022-09-06
+Matthew,Novak,matthew.novak@example.com,Tietokoneen toiminnan perusteet,2023-03-08,2023-05-31,completed,1,2023-05-25
+Victoria,Herrero,victoria.herrero@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,completed,2,2022-10-21
+Same,Armstrong,same.armstrong@example.com,Kiertotalous.nyt,2022-10-18,2022-12-31,completed,4,2022-12-05
+Centa,Wacker,centa.wacker@example.com,Elements of AI,2023-01-07,2023-04-30,failed,,2023-02-11
+Marlene,Grav,marlene.grav@example.com,Fullstack Open,2023-01-09,2023-04-30,completed,1,2023-01-15
+Jorge,Márquez,jorge.márquez@example.com,Elements of AI,2023-01-07,2023-04-30,inprogress,,
+Eemil,Saari,eemil.saari@example.com,Johdatus yhteiskuntatilastotieteeseen,2022-09-03,2022-11-30,completed,5,2022-10-03
+Jo,Woldseth,jo.woldseth@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,completed,4,2022-10-27
+Caroline,Jørgensen,caroline.jørgensen@example.com,Tietokoneen toiminnan perusteet,2023-03-08,2023-05-31,completed,5,2023-03-20
+Luukas,Kauppi,,Fullstack Open,2023-01-09,2023-04-30,completed,5,2023-03-18
+Valdemar,Rasmussen,valdemar.rasmussen@example.com,Building AI,2022-11-18,2023-02-01,completed,1,2023-01-08
+Matteo,Martens,matteo.martens@example.com,Kiertotalous.nyt,2022-10-18,2022-12-31,completed,5,2022-12-24
+,Landstra,delal.landstra@example.com,Johdatus yhteiskuntatilastotieteeseen,2022-09-03,2022-11-30,completed,3,2022-10-01
+Jonas,Lecomte,jonas.lecomte@example.com,Building AI,2022-11-18,2023-02-01,completed,3,2023-01-08
+Joel,Lassila,joel.lassila@example.com,Building AI,2022-11-18,2023-02-01,completed,5,2023-01-01
+Matheo,Nordsveen,matheo.nordsveen@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,completed,4,2022-10-27
+Elli,Hurlen,elli.hurlen@example.com,Kiertotalous.nyt,2022-10-18,2022-12-31,failed,,2022-10-22
+Anaëlle,Aubert,anaëlle.aubert@example.com,Tietokoneen toiminnan perusteet,2023-03-08,2023-05-31,failed,,2023-05-13
+Ashton,Moore,ashton.moore@example.com,Elements of AI,2023-01-07,2023-04-30,inprogress,,
+Aderico,de Souza,aderico.de souza@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,inprogress,,
+Violet,Williams,violet.williams@example.com,Johdatus yhteiskuntatilastotieteeseen,2022-09-03,2022-11-30,inprogress,,
+Molly,Cook,molly.cook@example.com,Kiertotalous.nyt,2022-10-18,2022-12-31,failed,,2022-11-10
+Melissa,Kvalheim,melissa.kvalheim@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,completed,3,2022-10-29
+Remo,Hollmann,remo.hollmann@example.com,Tietokoneen toiminnan perusteet,2023-03-08,2023-05-31,completed,1,2023-03-19
+Minna,Sonnenberg,minna.sonnenberg@example.com,Johdatus yhteiskuntatilastotieteeseen,2022-09-03,2022-11-30,completed,5,2022-10-30
+Brad,Valk,brad.valk@example.com,Fullstack Open,2023-01-09,2023-04-30,completed,5,2023-03-24
+Alexander,Morris,alexander.morris@example.com,Elements of AI,2023-01-07,2023-04-30,inprogress,,
+Nella,Moilanen,nella.moilanen@example.com,Building AI,2022-11-18,2023-02-01,completed,4,2022-12-17
+Beau,Walker,beau.walker@example.com,Building AI,2022-11-18,2023-02-01,inprogress,,
+Cecy,Viana,cecy.viana@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,completed,3,2022-09-11
+Phillip,Hanson,phillip.hanson@example.com,Tietokoneen toiminnan perusteet,2023-03-08,2023-05-31,inprogress,,
+Hailey,,hailey.walker@example.com,Johdatus yhteiskuntatilastotieteeseen,2022-09-03,2022-11-30,completed,1,2022-11-19
+Songül,Korb,songül.korb@example.com,Elements of AI,2023-01-07,2023-04-30,completed,3,2023-03-11
+Isabella,Harris,isabella.harris@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,completed,3,2022-09-19
+Gwendolyn,White,gwendolyn.white@example.com,Johdatus yhteiskuntatilastotieteeseen,2022-09-03,2022-11-30,inprogress,,
+Gaëtan,Lacroix,gaëtan.lacroix@example.com,Tietokoneen toiminnan perusteet,2023-03-08,2023-05-31,completed,3,2023-03-18
+Oscar,Chambers,oscar.chambers@example.com,Fullstack Open,2023-01-09,2023-04-30,inprogress,,
+Luka,Meyer,luka.meyer@example.com,Tietokoneen toiminnan perusteet,2023-03-08,2023-05-31,completed,3,2023-04-29
+Hélèna,Gonzalez,hélèna.gonzalez@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,inprogress,,
+Alberte,Jørgensen,alberte.jørgensen@example.com,Elements of AI,2023-01-07,2023-04-30,completed,2,2023-03-26
+Ekaterina,Witt,ekaterina.witt@example.com,Kiertotalous.nyt,2022-10-18,2022-12-31,inprogress,,
+Nathaniel,Watson,nathaniel.watson@example.com,Tietokoneen toiminnan perusteet,2023-03-08,2023-05-31,inprogress,,
+Timeo,Arnaud,timeo.arnaud@example.com,Johdatus yhteiskuntatilastotieteeseen,2022-09-03,2022-11-30,inprogress,,
+Mia,Lam,mia.lam@example.com,Tietokoneen toiminnan perusteet,2023-03-08,2023-05-31,completed,3,2023-05-14
+Warren,Day,warren.day@example.com,Building AI,2022-11-18,2023-02-01,completed,4,2022-11-21
+Evie,Green,evie.green@example.com,Building AI,2022-11-18,2023-02-01,inprogress,,
+Jesper,Boertien,jesper.boertien@example.com,Kiertotalous.nyt,2022-10-18,2022-12-31,inprogress,,
+Marlène,Sanchez,marlène.sanchez@example.com,Elements of AI,2023-01-07,2023-04-30,completed,4,2023-03-24
+Maria,Owens,maria.owens@example.com,Tietokoneen toiminnan perusteet,2023-03-08,2023-05-31,completed,1,2023-05-13
+William,Carpentier,william.carpentier@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,inprogress,,
+Sophie,Neal,sophie.neal@example.com,Johdatus yhteiskuntatilastotieteeseen,2022-09-03,2022-11-30,completed,4,2022-09-04
+Cristóbal,Castro,cristóbal.castro@example.com,Building AI,2022-11-18,2023-02-01,completed,4,2022-11-23
+Aria,Li,aria.li@example.com,Tietokoneen toiminnan perusteet,2023-03-08,2023-05-31,completed,2,2023-04-13
+Fletcher,Green,fletcher.green@example.com,Kiertotalous.nyt,2022-10-18,2022-12-31,completed,3,2022-11-26
+Lea,Macdonald,,Johdatus yhteiskuntatilastotieteeseen,2022-09-03,2022-11-30,completed,3,2022-11-19
+Avery,Ennis,,Elements of AI,2023-01-07,2023-04-30,completed,2,2023-03-08
+Johny,Wobben,johny.wobben@example.com,Building AI,2022-11-18,2023-02-01,inprogress,,
+Jacob,Ennis,jacob.ennis@example.com,Building AI,2022-11-18,2023-02-01,completed,4,2023-01-14
+Owen,Kowalski,owen.kowalski@example.com,Building AI,2022-11-18,2023-02-01,completed,2,2023-01-20
+Isaac,Hughes,isaac.hughes@example.com,Tietokoneen toiminnan perusteet,2023-03-08,2023-05-31,inprogress,,
+Callum,Owens,callum.owens@example.com,Tietokoneen toiminnan perusteet,2023-03-08,2023-05-31,inprogress,,
+Dâni,Silveira,dâni.silveira@example.com,Elements of AI,2023-01-07,2023-04-30,completed,2,2023-04-04
+Frederick,Berry,frederick.berry@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,inprogress,,
+Ashton,Singh,ashton.singh@example.com,Elements of AI,2023-01-07,2023-04-30,inprogress,,
+Eleanor,Allen,eleanor.allen@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,completed,4,2022-10-21
+Najwa,Güler,najwa.güler@example.com,Tietokoneen toiminnan perusteet,2023-03-08,2023-05-31,inprogress,,
+Noah,Taylor,noah.taylor@example.com,Fullstack Open,2023-01-09,2023-04-30,inprogress,,
+Tania,Garcia,tania.garcia@example.com,Kiertotalous.nyt,2022-10-18,2022-12-31,failed,,2022-12-09
+Leon,Robinson,leon.robinson@example.com,Tietokoneen toiminnan perusteet,2023-03-08,2023-05-31,completed,3,2023-05-27
+Carrie,Ramirez,carrie.ramirez@example.com,Johdatus yhteiskuntatilastotieteeseen,2022-09-03,2022-11-30,failed,,2022-11-04
+Barbara,Graves,barbara.graves@example.com,Building AI,2022-11-18,2023-02-01,failed,,2022-12-31
+Elena,Meise,elena.meise@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,completed,1,2022-09-11
+Magnus,Møller,magnus.møller@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,inprogress,,
+Clayton,Butler,clayton.butler@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,completed,1,2022-09-15
+Jéssica,Rodrigues,jéssica.rodrigues@example.com,Elements of AI,2023-01-07,2023-04-30,completed,2,2023-02-16
+Ruben,Baker,ruben.baker@example.com,Kiertotalous.nyt,2022-10-18,2022-12-31,completed,3,2022-11-18
+Aleksi,Haataja,aleksi.haataja@example.com,Kiertotalous.nyt,2022-10-18,2022-12-31,failed,,2022-11-14
+Dovydas,Urke,dovydas.urke@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,completed,3,2022-10-28
+Zeynep,Renaud,zeynep.renaud@example.com,Tietokoneen toiminnan perusteet,2023-03-08,2023-05-31,completed,5,2023-04-14
+Tilia,Solås,tilia.solås@example.com,Kiertotalous.nyt,2022-10-18,2022-12-31,completed,1,2022-10-31
+Gloria,Sánchez,gloria.sánchez@example.com,Kiertotalous.nyt,2022-10-18,2022-12-31,completed,1,2022-10-27
+Johanne,Helvik,johanne.helvik@example.com,Building AI,2022-11-18,2023-02-01,failed,,2022-12-16
+Helga,Gaillard,helga.gaillard@example.com,Johdatus yhteiskuntatilastotieteeseen,2022-09-03,2022-11-30,inprogress,,
+Scarlett,Snyder,scarlett.snyder@example.com,Kiertotalous.nyt,2022-10-18,2022-12-31,completed,1,2022-11-13
+Emma,Margaret,emma.margaret@example.com,Building AI,2022-11-18,2023-02-01,inprogress,,
+Myrtle,Montgomery,myrtle.montgomery@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,completed,1,2022-10-13
+Dwayne,Murphy,dwayne.murphy@example.com,Building AI,2022-11-18,2023-02-01,completed,4,2023-01-05
+Sofia,French,sofia.french@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,completed,2,2022-11-01
+Kevin,Hawkins,kevin.hawkins@example.com,Building AI,2022-11-18,2023-02-01,completed,1,2022-12-15
+Ambre,Clement,ambre.clement@example.com,Ohjelmoinnin perusteet,2022-09-01,2022-11-15,failed,,2022-09-07
+Nolan,Schmitt,nolan.schmitt@example.com,Fullstack Open,2023-01-09,2023-04-30,completed,2,2023-02-03
+Alex,Douglas,alex.douglas@example.com,Kiertotalous.nyt,2022-10-18,2022-12-31,completed,1,2022-11-08
+Austin,King,austin.king@example.com,Building AI,2022-11-18,2023-02-01,completed,2,2022-12-01
+Elliott,Klapwijk,elliott.klapwijk@example.com,Johdatus yhteiskuntatilastotieteeseen,2022-09-03,2022-11-30,failed,,2022-10-14
+Maxime,Blanchard,maxime.blanchard@example.com,Elements of AI,2023-01-07,2023-04-30,completed,4,2023-02-09
+Thibault,Dupont,thibault.dupont@example.com,Elements of AI,2023-01-07,2023-04-30,completed,3,2023-04-24
+Mario,Sleire,mario.sleire@example.com,Building AI,2022-11-18,2023-02-01,completed,1,2023-01-15
+Valdemar,Rasmussen,valdemar.rasmussen@example.com,Elements of AI,2023-01-07,2023-04-30,completed,2,2023-04-01
+Johny,Wobben,johny.wobben@example.com,Elements of AI,2023-01-07,2023-04-30,inprogress,,
+Jacob,Ennis,jacob.ennis@example.com,Elements of AI,2023-01-07,2023-04-30,completed,5,2023-04-14
+Owen,Kowalski,owen.kowalski@example.com,Elements of AI,2023-01-07,2023-04-30,completed,2,2023-04-20
+Zeynep,Renaud,zeynep.renaud@example.com,Tietokoneen toiminnan perusteet,2023-03-08,2023-05-31,completed,1,2023-04-01
+Tania,Garcia,tania.garcia@example.com,Elements of AI,2023-01-07,2023-04-30,,,2023-03-09
+Nella,Moilanen,nella.moilanen@example.com,Elements of AI,2023-01-07,2023-04-30,completed,4,2023-02-01
+Beau,Walker,beau.walker@example.com,Elements of AI,2023-01-07,2023-04-30,completed,3,2023-04-29
