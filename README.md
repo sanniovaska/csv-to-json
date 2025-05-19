@@ -7,9 +7,7 @@ Parse input csv file (input/input.csv) and generate three JSON files (courses.js
 
 In csv-to-json directory (where project.clj is)
 
-    $ lein run
-OR
+    $ lein run "input/input.csv"
 
-    $ java -jar csv-to-json-0.1.0-standalone.jar
 
 
