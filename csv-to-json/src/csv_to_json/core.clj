@@ -27,7 +27,7 @@
 ;; Check that CSV file exists and isn't empty
 
 (defn error-from-empty-csv
-  "Checks if CSV is empty. TODO put this later"
+  "Checks if CSV is empty."
   [data]
   (if (empty? data)
     (println "Error: File is empty")
@@ -120,8 +120,8 @@
    or if one doesn't exist the latest failed, attempt is first."
   [group]
   (->> group
-   (sort-by :date desc)
-   (sort-by :status desc)))
+       (sort-by :date desc)
+       (sort-by :status desc)))
 
 (defn sort-row-groups
   "Creates a vector of vectors, each of which includes one group of duplicates,
@@ -181,22 +181,59 @@
 (defn clean-data
   "Cleans up data per above instructions."
   [data]
-  (remove-incomplete-grades (fail-courses-outside-dates (remove-duplicates(remove-missing-required data)))))
+  (remove-incomplete-grades (fail-courses-outside-dates (remove-duplicates (remove-missing-required data)))))
 
 
 ;; Write to JSON
 
-;; write-json {:key1 "val1" :key2 "val2"} "output/testi1.json"
-(defn write-json
+;; write-json-to-file {:key1 "val1" :key2 "val2"} "output/testi1.json"
+(defn write-json-to-file
   "Writes given map DATA to json at FILEPATH."
   [data filepath]
   (with-open [wrtr (jio/writer filepath)]
-    (.write wrtr (json/write-str data))))
+    (.write wrtr (json/write-str (into [] data)))))
 
+;; 1. courses.json: 
+;;[{
+;;  "name": <kurssin nimi>,
+;;  "start_date": <kurssin alkamispäivämäärä>,
+;;  "end_date": <kurssin päättymispäivämäärä>,
+;;  "results": {
+;;    "completed": <suoritettujen lukumäärä>,
+;;    "failed": <hylättyjen lukumäärä>,
+;;    "inprogress": <keskeneräisten suoritusten lukumäärä>
+;;  },
+;;  "grades": {
+;;     1: <arvosanan 1 suorittaneiden lukumäärä>,
+;;     2: <arvosanan 2 suorittaneiden lukumäärä>,
+;;     3: <arvosanan 3 suorittaneiden lukumäärä>,
+;;     4: <arvosanan 4 suorittaneiden lukumäärä>,
+;;     5: <arvosanan 5 suorittaneiden lukumäärä>
+;;  },
+;;  “first_completion_date”: <ensimmäisen suorituksen päivämäärä>,
+;;  “most_recent_completion_date”: <viimeisimmän suorituksen päivämäärä>
+;;}]
+
+(defn courses-data
+  "Collects data for courses.json. TODO"
+  [row]
+  (identity {:name (get row :course_name)
+     :start_date (get row :start_date)
+     :end_date (get row :end_date)}))
+
+(defn write-courses
+  "Writes courses.json"
+  [data]
+  (write-json-to-file (map courses-data data) "output/courses.json"))
+
+(defn write-jsons
+  "Writes three JSON files."
+  [data]
+  (write-courses data))
 
 ;;
 
 (defn -main
   "Loads CSV and writes JSONs of the data."
   [& args]
-  (println (clean-data (vectors-to-maps (try-load-csv (first args))))))
+  (println (write-jsons (clean-data (vectors-to-maps (try-load-csv (first args)))))))
