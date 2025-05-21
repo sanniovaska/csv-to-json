@@ -58,9 +58,32 @@
     (println "Virhe")))
 
 
+;; Convert CSV data vector of vectors to map with correct keys
+
+(defn key-from-title
+  "Returns correct key for the given TITLE of a column."
+  [title]
+  (case title
+    "Etunimi" :first_name
+    "Sukunimi" :last_name
+    "E-mail" :email
+    "Kurssin nimi" :course_name
+    "Kurssi alkaa" :start_date
+    "Kurssi päättyy" :end_date
+    "Status" :status
+    "Arvosana" :grade
+    "Kurssin suorituspäivämäärä" :date))
+
+(defn vectors-to-maps
+  "Converts a vector of vectors into a vector of maps."
+  [v]
+  (let [header (first v)]
+    (map zipmap (repeat (map key-from-title header)) (rest v))))
+
+
 ;; Main
 
 (defn -main
   "Loads CSV and prints JSONs of the data."
   [& args]
-  (println (try-load-csv (first args))))
+  (println (vectors-to-maps (try-load-csv (first args)))))
