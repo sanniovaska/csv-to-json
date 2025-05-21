@@ -5,16 +5,6 @@
    [clojure.java.io :as jio]
    [clojure.data.json :as json]))
 
-;; Write to JSON
-
-;; write-json {:key1 "val1" :key2 "val2"} "output/testi1.json"
-(defn write-json
-  "Writes given map DATA to json at FILEPATH."
-  [data, filepath]
-  (with-open [wrtr (jio/writer filepath)]
-    (.write wrtr (json/write-str data))))
-
-
 ;;
 
 (defn dissoc-nils
@@ -58,7 +48,7 @@
     (println "Virhe")))
 
 
-;; Convert CSV data vector of vectors to map with correct keys
+;; Convert CSV data vector of vectors to vector of maps with correct keys
 
 (defn key-from-title
   "Returns correct key for the given TITLE of a column."
@@ -72,7 +62,8 @@
     "Kurssi päättyy" :end_date
     "Status" :status
     "Arvosana" :grade
-    "Kurssin suorituspäivämäärä" :date))
+    "Kurssin suorituspäivämäärä" :date
+    :default))
 
 (defn vectors-to-maps
   "Converts a vector of vectors into a vector of maps."
@@ -81,9 +72,48 @@
     (map zipmap (repeat (map key-from-title header)) (rest v))))
 
 
-;; Main
+;; Clean up data before converting to JSON
+;; 1. Remove rows where all required information is not present
+;; 2. Remove duplicate course+student combinations
+;; 3. Change grade to "failed" when course completion date 
+;;    is outside course start and end dates
+;; 4. Remove grade if course status is not "completed"
+
+(defn required-info?
+  "Checks if key of PAIR is required info."
+  [pair]
+  (contains? #{:first_name :laste_name :email :course_name :start_date :end_date :status} (key pair)))
+
+(defn valid-row?
+  "Checks if all required information is present."
+  [row]
+  (not-any? nil? (vals (filter required-info? row))))
+
+(defn remove-missing-required
+  "Removes rows missing required information."
+  [data]
+  (filter valid-row? data))
+
+
+(defn clean-data
+  "Cleans up data per above instructions."
+  [data]
+  (remove-missing-required data))
+
+
+;; Write to JSON
+
+;; write-json {:key1 "val1" :key2 "val2"} "output/testi1.json"
+(defn write-json
+  "Writes given map DATA to json at FILEPATH."
+  [data, filepath]
+  (with-open [wrtr (jio/writer filepath)]
+    (.write wrtr (json/write-str data))))
+
+
+;;
 
 (defn -main
-  "Loads CSV and prints JSONs of the data."
+  "Loads CSV and writes JSONs of the data."
   [& args]
-  (println (vectors-to-maps (try-load-csv (first args)))))
+  (println (clean-data (vectors-to-maps (try-load-csv (first args))))))

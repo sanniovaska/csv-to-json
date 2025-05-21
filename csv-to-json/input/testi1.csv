@@ -1,3 +1,4 @@
 Etunimi,Sukunimi,E-mail,Kurssin nimi,Kurssi alkaa,Kurssi päättyy,Status,Arvosana,Kurssin suorituspäivämäärä
 Lisa,Fowler,lisa.fowler@example.com,Johdatus yhteiskuntatilastotieteeseen,2022-09-03,2022-11-30,completed,3,2022-09-11
+Sanni,Ovaska,,abc,2022-09-03,2022-11-30,completed,3,2022-09-11
 Alban,Roche,alban.roche@example.com,Building AI,2022-11-18,2023-02-01,inprogress,,
