@@ -111,11 +111,44 @@
 
 ;; 2. Remove duplicate course+student combinations
 
+(defn email-and-course-name
+  "Creates a map of email and course name."
+  [row]
+  (select-keys row [:email :course_name]))
+
+(defn group-by-student-course
+  "Groups rows by student email and course name."
+  [row]
+  (group-by email-and-course-name row))
+
+(defn desc
+  [a b]
+  (compare b a))
+
+(defn sort-group
+  "Sorts group of rows so that the latest completed, 
+   or if one doesn't exist the latest failed, attempt is first."
+  [group]
+  (->> group
+   (sort-by :date desc)
+   (sort-by :status desc)))
+
+(defn sort-row-groups
+  "Creates a vector of vectors, each of which includes one group of duplicates,
+   ordered by status and date."
+  [data]
+  (map sort-group (vals (group-by-student-course data))))
+
+(defn remove-duplicates
+  "Removes duplicate rows."
+  [data]
+  (map first (sort-row-groups data)))
+
 
 (defn clean-data
   "Cleans up data per above instructions."
   [data]
-  (remove-missing-required data))
+  (remove-duplicates(remove-missing-required data)))
 
 
 ;; Write to JSON
