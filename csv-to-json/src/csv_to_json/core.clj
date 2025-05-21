@@ -5,13 +5,6 @@
    [clojure.java.io :as jio]
    [clojure.data.json :as json]))
 
-;;
-
-(defn dissoc-nils
-  "Drops keys with nil values, or nil keys, from the hashmap H. TODO"
-  [h]
-  (into {} (filter (fn [[k v]] (and v k)) h)))
-
 
 ;; Read data from CSV
 
@@ -90,9 +83,6 @@
 ;; Clean up data before converting to JSON
 
 ;; 1. Remove rows where all required information is not present
-;; 3. Change grade to "failed" when course completion date 
-;;    is outside course start and end dates
-;; 4. Remove grade if course status is not "completed"
 
 (defn required-info?
   "Checks if key of PAIR is required info."
@@ -144,11 +134,54 @@
   [data]
   (map first (sort-row-groups data)))
 
+;; 3. Change status to "failed" when course completion date 
+;;    is outside course start and end dates
+
+(defn status-to-fail
+  "Changes status to 'failed' (1)."
+  [row]
+  (assoc row :status 1))
+
+(defn outside-completion-to-fail
+  "Checks if course completion date is outside course dates, 
+   if not changes status to 'failed'."
+  [row]
+  (if (nil? (get row :date))
+    row
+    (if (and (>= 0 (compare (get row :start_date) (get row :date))) (>= 0 (compare (get row :date) (get row :end_date))))
+      row
+      (status-to-fail row))))
+
+(defn fail-courses-outside-dates
+  "Removes grades from rows not marked 'completed'."
+  [data]
+  (map outside-completion-to-fail data))
+
+;; 4. Remove grade if course status is not "completed"
+
+(defn grade-to-nil
+  "Changes grade to nil."
+  [row]
+  (assoc row :grade nil))
+
+(defn incomplete-to-nil-grade
+  "Checks if status is 'completed', and if not changes grade to nil."
+  [row]
+  (if (= 2 (get row :status))
+    row
+    (grade-to-nil row)))
+
+(defn remove-incomplete-grades
+  "Removes grades from rows not marked 'completed'."
+  [data]
+  (map incomplete-to-nil-grade data))
+
+;;
 
 (defn clean-data
   "Cleans up data per above instructions."
   [data]
-  (remove-duplicates(remove-missing-required data)))
+  (remove-incomplete-grades (fail-courses-outside-dates (remove-duplicates(remove-missing-required data)))))
 
 
 ;; Write to JSON
@@ -156,7 +189,7 @@
 ;; write-json {:key1 "val1" :key2 "val2"} "output/testi1.json"
 (defn write-json
   "Writes given map DATA to json at FILEPATH."
-  [data, filepath]
+  [data filepath]
   (with-open [wrtr (jio/writer filepath)]
     (.write wrtr (json/write-str data))))
 
