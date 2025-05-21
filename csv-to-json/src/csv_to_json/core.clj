@@ -30,7 +30,7 @@
   "Checks if CSV is empty. TODO put this later"
   [data]
   (if (empty? data)
-    (println "Virhe tyhjä")
+    (println "Error: File is empty")
     data))
 
 (defn try-load-csv
@@ -38,7 +38,7 @@
   [filepath]
   (if (.exists (jio/as-file filepath))
     (error-from-empty-csv (load-csv filepath))
-    (println "Virhe")))
+    (println "Error: Could not find file")))
 
 
 ;; Convert CSV data vector of vectors to vector of maps with correct keys
