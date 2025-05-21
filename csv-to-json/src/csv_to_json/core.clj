@@ -49,6 +49,7 @@
 
 
 ;; Convert CSV data vector of vectors to vector of maps with correct keys
+;; Change status to number: "completed" = 2, "failed" = 1, "inprogress" = 0;
 
 (defn key-from-title
   "Returns correct key for the given TITLE of a column."
@@ -65,16 +66,30 @@
     "Kurssin suorituspäivämäärä" :date
     :default))
 
+(defn status-from-text
+  "Changes status to number."
+  [status]
+  (case status
+    "completed" 2
+    "failed" 1
+    "inprogress" 0
+    -1))
+
+(defn set-status
+  "Changes status to number."
+  [row]
+  (update row :status status-from-text))
+
 (defn vectors-to-maps
-  "Converts a vector of vectors into a vector of maps."
+  "Converts a vector of vectors into a vector of maps. Sets status as integer."
   [v]
   (let [header (first v)]
-    (map zipmap (repeat (map key-from-title header)) (rest v))))
+    (map set-status (mapv zipmap (repeat (map key-from-title header)) (rest v)))))
 
 
 ;; Clean up data before converting to JSON
+
 ;; 1. Remove rows where all required information is not present
-;; 2. Remove duplicate course+student combinations
 ;; 3. Change grade to "failed" when course completion date 
 ;;    is outside course start and end dates
 ;; 4. Remove grade if course status is not "completed"
@@ -93,6 +108,8 @@
   "Removes rows missing required information."
   [data]
   (filter valid-row? data))
+
+;; 2. Remove duplicate course+student combinations
 
 
 (defn clean-data
