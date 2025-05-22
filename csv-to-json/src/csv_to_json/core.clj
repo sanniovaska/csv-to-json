@@ -124,13 +124,18 @@
   [data]
   (map first (sort-row-groups data)))
 
-;; 3. Change status to "failed" when course completion date 
-;;    is outside course start and end dates
+;; 3. Change status to "failed" and date to nil when course completion date 
+;;    is outside course start and end dates.
 
 (defn status-to-fail
   "Changes status to 'failed' (1)."
   [row]
   (assoc row :status 1))
+
+(defn date-to-nil
+  "Changes date to nil."
+  [row]
+  (assoc row :date nil))
 
 (defn outside-completion-to-fail
   "Checks if course completion date is outside course dates, 
@@ -140,7 +145,7 @@
     row
     (if (and (>= 0 (compare (get row :start_date) (get row :date))) (>= 0 (compare (get row :date) (get row :end_date))))
       row
-      (status-to-fail row))))
+      (date-to-nil (status-to-fail row)))))
 
 (defn fail-courses-outside-dates
   "Removes grades from rows not marked 'completed'."
@@ -187,6 +192,16 @@
   (with-open [wrtr (jio/writer filepath)]
     (.write wrtr (json/write-str (into [] data)))))
 
+(defn count-if
+  "Counts how many pass pred."
+  [pred? coll]
+  (count (filter pred? coll)))
+
+(defn count-amount
+  "Counts how many in data have value at key."
+  [data key value]
+  (count-if (fn [c] (= (get c key) value)) data))
+
 ;; 1. courses.json: 
 ;;[{
 ;;  "name": <kurssin nimi>,
@@ -208,17 +223,66 @@
 ;;  “most_recent_completion_date”: <viimeisimmän suorituksen päivämäärä>
 ;;}]
 
-(defn courses-data
-  "Collects data for courses.json. TODO"
-  [row]
-  (identity {:name (get row :course_name)
-     :start_date (get row :start_date)
-     :end_date (get row :end_date)}))
+(defn count-results
+  "Counts how many of each status has been given"
+  [course json]
+  (conj json {"results" {
+                         "completed" (count-amount course :status 2)
+                         "failed" (count-amount course :status 1)
+                         "inprogress"  (count-amount course :status 0)
+  }}))
+
+(defn count-grades
+  "Counts how many of each grade has been given."
+  [course json]
+  (conj json {"grades" {
+                        1 (count-amount course :grade 1)
+                        2 (count-amount course :grade 2)
+                        3 (count-amount course :grade 3)
+                        4 (count-amount course :grade 4)
+                        5 (count-amount course :grade 5)
+                        }}))
+
+(defn filter-nil-dates
+  "Filter out rows with nil completion dates"
+  [course]
+  (filter (fn [c] (some? (get c :date))) course))
+
+(defn completion-dates
+  "Adds first and last completion date."
+  [course json]
+  (let [course-by-date (sort-by :date (filter-nil-dates course))]
+    (conj json {"first_completion_date" (get (first course-by-date) :date)} {"last_completion_date" (get (last course-by-date) :date)})))
+
+(defn add-courses-info
+  "Adds name, start date and end date.
+   Calls to add results, grades and completion dates."
+  [course]
+  (let [basic-info {:name (get (first course) :course_name)
+                    :start_date (get (first course) :start_date)
+                    :end_date (get (first course) :end_date)}]
+    (->> basic-info
+       (count-results course)
+       (count-grades course)
+       (completion-dates course))))
+
+(defn courses-info
+  "Collects info for each course."
+  [data]
+  (map add-courses-info (vals data)))
+
+(defn get-courses-info
+  "Groups by course name and sort by completion date,
+   gets info for courses.json."
+  [data]
+  (->> data
+       (group-by :course_name)
+       (courses-info)))
 
 (defn write-courses
   "Writes courses.json"
   [data]
-  (write-json-to-file (map courses-data data) "output/courses.json"))
+  (write-json-to-file (get-courses-info data) "output/courses.json"))
 
 (defn write-jsons
   "Writes three JSON files."
@@ -230,5 +294,4 @@
 (defn -main
   "Loads CSV and writes JSONs of the data."
   [& args]
-  (println (clean-data (vectors-to-maps (try-load-csv (first args))))))
-  ;(println (write-jsons (clean-data (vectors-to-maps (try-load-csv (first args)))))))
+  (println (write-jsons (clean-data (vectors-to-maps (try-load-csv (first args)))))))
