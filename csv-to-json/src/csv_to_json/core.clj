@@ -101,15 +101,9 @@
 
 ;; 2. Remove duplicate course+student combinations
 
-(defn email-and-course-name
-  "Creates a map of email and course name."
-  [row]
-  (select-keys row [:email :course_name]))
-
 (defn group-by-student-course
-  "Groups rows by student email and course name."
-  [row]
-  (group-by email-and-course-name row))
+  [data]
+  (group-by (juxt :email :course_name) data))
 
 (defn desc
   [a b]
@@ -119,9 +113,7 @@
   "Sorts group of rows so that the latest completed, 
    or if one doesn't exist the latest failed, attempt is first."
   [group]
-  (->> group
-       (sort-by :date desc)
-       (sort-by :status desc)))
+  (sort-by (juxt :status :date) desc group))
 
 (defn sort-row-groups
   "Creates a vector of vectors, each of which includes one group of duplicates,
@@ -240,5 +232,5 @@
 (defn -main
   "Loads CSV and writes JSONs of the data."
   [& args]
-  (println (vectors-to-maps (try-load-csv (first args)))))
+  (println (clean-data (vectors-to-maps (try-load-csv (first args))))))
   ;(println (write-jsons (clean-data (vectors-to-maps (try-load-csv (first args)))))))
