@@ -62,11 +62,11 @@
    "inprogress" 0})
 
 (defn status-from-text
-  "Changes status to number."
+  "Gets int value from status text."
   [status]
   (get status-int status))
 
-(defn set-status
+(defn set-int-status
   "Changes status to number."
   [row]
   (update row :status status-from-text))
@@ -77,7 +77,7 @@
   (let [header-repeated (repeat (replace titles-and-keys header))]
     (->> body
          (mapv zipmap header-repeated)
-         (map set-status))))
+         (map set-int-status))))
 
 ;; Main
 

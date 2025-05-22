@@ -154,9 +154,60 @@
   [data]
   (write-json-to-file (get-users-info data) "output/users.json"))
 
+
+;; 3. results.json:
+;;[{
+;;  "course_name": <kurssin nimi>,
+;;  "email": <oppijan email>,
+;;  "status": <suoritukset status>,
+;;  "grade": <suorituksen arvosana>,
+;;  "date": <suorituspäivämäärä ISO 8601 -muodossa>
+;;}]
+
+(def int-status
+  {2 "completed"
+   1 "failed"
+   0 "inprogress"})
+
+(defn status-from-int
+  "Gets string value from status int."
+  [status]
+  (get int-status status))
+
+(defn set-string-status
+  "Changes status back to string."
+  [row]
+  (update row :status status-from-int))
+
+(defn grade-to-int
+  "Changes grade from string to int."
+  [row]
+  (let [grade (get row :grade)]
+    (if (nil? grade)
+      row
+      (assoc row :grade (read-string grade)))))
+
+(defn results-info
+  "Keeps only the keys needed for results.json."
+  [result]
+  (select-keys result [:course_name :email :status :grade :date]))
+
+(defn get-results-info
+  "Filters unneeded info from results."
+  [data]
+  (->> data
+       (map results-info)
+       (map set-string-status)
+       (map grade-to-int)))
+
+(defn write-results
+  "Writes results.json"
+  [data]
+  (write-json-to-file (get-results-info data) "output/results.json"))
+
 ;; Main writer
 
 (defn write-jsons
   "Writes three JSON files."
   [data]
-  (or (write-courses data) (write-users data)))
+  (or (write-courses data) (write-users data) (write-results data)))
