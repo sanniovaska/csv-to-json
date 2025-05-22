@@ -69,8 +69,10 @@
 (defn completion-dates
   "Adds first and last completion date."
   [course json]
-  (let [course-by-date (sort-by :date (filter-nil-dates course))]
-    (conj json {"first_completion_date" (get (first course-by-date) :date)} {"last_completion_date" (get (last course-by-date) :date)})))
+  (let [course-by-date (sort-by :date (filter-nil-dates course))
+        first-date (get (first course-by-date) :date)
+        last-date (get (last course-by-date) :date)]
+    (conj json {"first_completion_date" first-date} {"last_completion_date" last-date})))
 
 (defn add-courses-info
   "Adds name, start date and end date.
