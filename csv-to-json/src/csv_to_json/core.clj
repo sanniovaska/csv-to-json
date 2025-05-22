@@ -11,9 +11,7 @@
 (defn empty-string-to-nil
   "Turns empty strings to nil, non-empty are unchanged."
   [s]
-  (if (and (string? s) (empty? s))
-    nil
-    s))
+  (when-not (and (string? s) (empty? s)) s))
 
 (defn load-csv
   "Returns a data structure loaded from a CSV file at FILEPATH."
@@ -26,7 +24,7 @@
 
 ;; Check that CSV file exists and isn't empty
 
-(defn error-from-empty-csv
+(defn error-from-empty
   "Checks if CSV is empty."
   [data]
   (if (empty? data)
@@ -37,7 +35,7 @@
   "Tries to load CSV. If file doesn't exist or is empty, prints error message."
   [filepath]
   (if (.exists (jio/as-file filepath))
-    (error-from-empty-csv (load-csv filepath))
+    (error-from-empty (load-csv filepath))
     (println "Error: Could not find file")))
 
 
@@ -75,9 +73,11 @@
 
 (defn vectors-to-maps
   "Converts a vector of vectors into a vector of maps. Sets status as integer."
-  [v]
-  (let [header (first v)]
-    (map set-status (mapv zipmap (repeat (map key-from-title header)) (rest v)))))
+  [[header & body]]
+  (let [header-repeated (repeat (map key-from-title header))]
+    (->> body
+         (mapv zipmap header-repeated)
+         (map set-status))))
 
 
 ;; Clean up data before converting to JSON
@@ -181,7 +181,11 @@
 (defn clean-data
   "Cleans up data per above instructions."
   [data]
-  (remove-incomplete-grades (fail-courses-outside-dates (remove-duplicates (remove-missing-required data)))))
+  (->> data
+       (remove-missing-required)
+       (remove-duplicates)
+       (fail-courses-outside-dates)
+       (remove-incomplete-grades)))
 
 
 ;; Write to JSON
@@ -236,4 +240,5 @@
 (defn -main
   "Loads CSV and writes JSONs of the data."
   [& args]
-  (println (write-jsons (clean-data (vectors-to-maps (try-load-csv (first args)))))))
+  (println (vectors-to-maps (try-load-csv (first args)))))
+  ;(println (write-jsons (clean-data (vectors-to-maps (try-load-csv (first args)))))))
