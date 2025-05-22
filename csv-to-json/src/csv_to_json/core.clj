@@ -40,31 +40,28 @@
 
 
 ;; Convert CSV data vector of vectors to vector of maps with correct keys
-;; Change status to number: "completed" = 2, "failed" = 1, "inprogress" = 0;
+;; Change status to int: "completed" = 2, "failed" = 1, "inprogress" = 0;
 
-(defn key-from-title
-  "Returns correct key for the given TITLE of a column."
-  [title]
-  (case title
-    "Etunimi" :first_name
-    "Sukunimi" :last_name
-    "E-mail" :email
-    "Kurssin nimi" :course_name
-    "Kurssi alkaa" :start_date
-    "Kurssi päättyy" :end_date
-    "Status" :status
-    "Arvosana" :grade
-    "Kurssin suorituspäivämäärä" :date
-    :default))
+(def titles-and-keys
+  {"Etunimi" :first_name
+   "Sukunimi" :last_name
+   "E-mail" :email
+   "Kurssin nimi" :course_name
+   "Kurssi alkaa" :start_date
+   "Kurssi päättyy" :end_date
+   "Status" :status
+   "Arvosana" :grade
+   "Kurssin suorituspäivämäärä" :date})
+
+(def status-int
+  {"completed" 2
+   "failed" 1
+   "inprogress" 0})
 
 (defn status-from-text
   "Changes status to number."
   [status]
-  (case status
-    "completed" 2
-    "failed" 1
-    "inprogress" 0
-    -1))
+  (get status-int status))
 
 (defn set-status
   "Changes status to number."
@@ -74,7 +71,7 @@
 (defn vectors-to-maps
   "Converts a vector of vectors into a vector of maps. Sets status as integer."
   [[header & body]]
-  (let [header-repeated (repeat (map key-from-title header))]
+  (let [header-repeated (repeat (replace titles-and-keys header))]
     (->> body
          (mapv zipmap header-repeated)
          (map set-status))))
@@ -102,6 +99,7 @@
 ;; 2. Remove duplicate course+student combinations
 
 (defn group-by-student-course
+  "Group data by student email and course name."
   [data]
   (group-by (juxt :email :course_name) data))
 
