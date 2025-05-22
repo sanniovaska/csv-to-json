@@ -135,7 +135,9 @@
   (let [basic-info {:first_name (get (first user) :first_name)
                     :laste_name (get (first user) :last_name)
                     :email (get (first user) :email)}]
-    (grade-avg user basic-info)))
+    (->> basic-info
+         (grade-avg user)
+         (count-results user))))
 
 (defn users-info
   "Collects info for each user."
