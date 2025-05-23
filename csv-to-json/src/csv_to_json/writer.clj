@@ -55,11 +55,11 @@
 (defn count-grades
   "Counts how many of each grade has been given."
   [course json]
-  (conj json {"grades" {1 (count-amount course :grade 1)
-                        2 (count-amount course :grade 2)
-                        3 (count-amount course :grade 3)
-                        4 (count-amount course :grade 4)
-                        5 (count-amount course :grade 5)}}))
+  (conj json {"grades" {1 (count-amount course :grade "1")
+                        2 (count-amount course :grade "2")
+                        3 (count-amount course :grade "3")
+                        4 (count-amount course :grade "4")
+                        5 (count-amount course :grade "5")}}))
 
 (defn filter-nil-dates
   "Filter out rows with nil completion dates"
@@ -74,7 +74,7 @@
         last-date (get (last course-by-date) :date)]
     (conj json {"first_completion_date" first-date} {"last_completion_date" last-date})))
 
-(defn add-courses-info
+(defn course-info
   "Adds name, start date and end date.
    Calls to add results, grades and completion dates."
   [course]
@@ -89,7 +89,7 @@
 (defn courses-info
   "Collects info for each course."
   [data]
-  (map add-courses-info (vals data)))
+  (map course-info (vals data)))
 
 (defn get-courses-info
   "Groups by course name and gets info for courses.json."
@@ -120,7 +120,10 @@
 (defn grades
   "Creates a list of non-nil grades obtained by the user."
   [user]
-  (map read-string (filter some? (map (fn [c] (get c :grade)) user))))
+  (->> user
+       (map (fn [c] (get c :grade)))
+       (filter some?)
+       (map read-string)))
 
 (defn grade-avg
   "Counts grade average for the user."
@@ -130,7 +133,7 @@
       (conj json {"grade_avg" nil})
       (conj json {"grade_avg" (/ (apply + grades) (count grades))}))))
 
-(defn add-users-info
+(defn user-info
   "Adds name, start date and end date.
    Calls to add results, grades and completion dates."
   [user]
@@ -144,7 +147,7 @@
 (defn users-info
   "Collects info for each user."
   [data]
-  (map add-users-info (vals data)))
+  (map user-info (vals data)))
 
 (defn get-users-info
   "Groups by course name and gets info for users.json."
@@ -168,15 +171,12 @@
 ;;  "date": <suorituspäivämäärä ISO 8601 -muodossa>
 ;;}]
 
-(def int-status
-  {2 "completed"
-   1 "failed"
-   0 "inprogress"})
-
 (defn status-from-int
   "Gets string value from status int."
   [status]
-  (get int-status status))
+  (get {2 "completed"
+        1 "failed"
+        0 "inprogress"} status))
 
 (defn set-string-status
   "Changes status back to string."
@@ -191,23 +191,23 @@
       row
       (assoc row :grade (read-string grade)))))
 
-(defn results-info
+(defn filter-result
   "Keeps only the keys needed for results.json."
   [result]
   (select-keys result [:course_name :email :status :grade :date]))
 
-(defn get-results-info
+(defn result-info
   "Filters unneeded info from results."
   [data]
   (->> data
-       (map results-info)
+       (map filter-result)
        (map set-string-status)
        (map grade-to-int)))
 
 (defn write-results
   "Writes results.json"
   [data]
-  (write-json-to-file (get-results-info data) "output/results.json"))
+  (write-json-to-file (result-info data) "output/results.json"))
 
 ;; Main writer
 

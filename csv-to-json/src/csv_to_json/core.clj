@@ -56,15 +56,12 @@
    "Arvosana" :grade
    "Kurssin suorituspäivämäärä" :date})
 
-(def status-int
-  {"completed" 2
-   "failed" 1
-   "inprogress" 0})
-
 (defn status-from-text
   "Gets int value from status text."
   [status]
-  (get status-int status))
+  (get {"completed" 2
+        "failed" 1
+        "inprogress" 0} status))
 
 (defn set-int-status
   "Changes status to number."

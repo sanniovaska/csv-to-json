@@ -59,15 +59,22 @@
   [row]
   (assoc row :date nil))
 
+(defn earlier?
+  [a b]
+  (>= 0 (compare a b)))
+
 (defn outside-completion-to-fail
   "Checks if course completion date is outside course dates, 
    if not changes status to 'failed'."
   [row]
-  (if (nil? (get row :date))
+  (let [date (get row :date)
+        start-date (get row :start_date)
+        end-date (get row :end_date)]
+    (if (nil? date)
     row
-    (if (and (>= 0 (compare (get row :start_date) (get row :date))) (>= 0 (compare (get row :date) (get row :end_date))))
+    (if (and (earlier? start-date date) (earlier? date end-date) ())
       row
-      (date-to-nil (status-to-fail row)))))
+      (date-to-nil (status-to-fail row))))))
 
 (defn fail-courses-outside-dates
   "Removes grades from rows not marked 'completed'."
@@ -93,7 +100,7 @@
   [data]
   (map incomplete-to-nil-grade data))
 
-;;
+;; Main cleaner
 
 (defn clean-data
   "Cleans up data per above instructions."
